@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Special</title>
+
+<style>
+body{
+  margin:0;
+  font-family:'Segoe UI',sans-serif;
+  background:linear-gradient(135deg,#141e30,#243b55);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+  overflow:hidden;
+  color:white;
+}
+
+.top-text{
+  position:absolute;
+  top:-60px;
+  width:100%;
+  text-align:center;
+  font-size:22px;
+  font-weight:600;
+  animation:slideDown 2s ease forwards;
+}
+
+@keyframes slideDown{
+  to{ top:30px; }
+}
+
+.card{
+  background:rgba(255,255,255,0.08);
+  backdrop-filter:blur(12px);
+  width:90%;
+  max-width:420px;
+  border-radius:20px;
+  padding:30px 20px;
+  text-align:center;
+  box-shadow:0 20px 50px rgba(0,0,0,0.4);
+  opacity:0;
+  animation:fadeIn 2s ease forwards;
+  animation-delay:1.2s;
+}
+
+@keyframes fadeIn{
+  to{ opacity:1; }
+}
+
+img{
+  width:170px;
+  margin-bottom:15px;
+}
+
+.typewriter{
+  font-size:16px;
+  line-height:1.6;
+  border-right:2px solid white;
+  white-space:pre-line;
+  overflow:hidden;
+}
+
+button{
+  margin-top:15px;
+  padding:10px 20px;
+  border:none;
+  border-radius:12px;
+  background:white;
+  color:#333;
+  cursor:pointer;
+  font-size:14px;
+}
+
+button:hover{
+  background:#ddd;
+}
+</style>
+</head>
+
+<body>
+
+<div class="top-text">
+  Special for Mrs Faaiilllaa
+</div>
+
+<div class="card">
+  <img src="https://i.imgur.com/6RLqGxM.png" alt="Rabbit with hat and rose">
+  
+  <div id="text" class="typewriter"></div>
+
+  <button onclick="alert('Cavabını gözləyirəm.')">
+    Cavab ver
+  </button>
+</div>
+
+<script>
+const message = 
+`Salam Fidan.
+
+Dedim fərqli cür yazım,
+biraz əziyyətli olsa da.
+
+Takibimi qəbul edə bilərsən?`;
+
+let i = 0;
+const speed = 45;
+const textElement = document.getElementById("text");
+
+function typeWriter() {
+  if (i < message.length) {
+    textElement.innerHTML += message.charAt(i);
+    i++;
+    setTimeout(typeWriter, speed);
+  }
+}
+
+setTimeout(typeWriter, 1800);
+</script>
+
+</body>
+</html>
