@@ -28,11 +28,10 @@ body{
   animation:slideDown 2s ease forwards;
 }
 
-@keyframes slideDown{
-  to{ top:30px; }
-}
+@keyframes slideDown{ to{ top:30px; } }
 
 .card{
+  position:relative;              /* IMPORTANT */
   background:rgba(255,255,255,0.1);
   backdrop-filter:blur(12px);
   width:90%;
@@ -44,11 +43,10 @@ body{
   opacity:0;
   animation:fadeIn 2s ease forwards;
   animation-delay:1.5s;
+  overflow:hidden;                /* button carddan çıxmasın */
 }
 
-@keyframes fadeIn{
-  to{ opacity:1; }
-}
+@keyframes fadeIn{ to{ opacity:1; } }
 
 img{
   width:200px;
@@ -63,8 +61,14 @@ img{
   white-space:pre-line;
 }
 
-button{
+.buttons{
   margin-top:15px;
+  position:relative;
+  min-height:60px; /* qaçan button üçün yer */
+}
+
+button{
+  margin:5px;
   padding:10px 20px;
   border:none;
   border-radius:12px;
@@ -74,38 +78,36 @@ button{
   font-size:14px;
 }
 
-button:hover{
-  background:#ddd;
+button:hover{ background:#ddd; }
+
+#noBtn{
+  position:absolute;
+  left:55%;
+  top:10px;
 }
 </style>
 </head>
 
 <body>
 
-<div class="top-text">
-  Special for Mrs Faaiilllaa
-</div>
+<div class="top-text">Special for Stella</div>
 
 <div class="card">
-
-  <img src="E080BFB1-70E0-4588-9BCB-2806809C2A62.png" alt="Faaiilllaa Cartoon">
+  <img src="8ED67D9B-B9BD-4D54-9748-E7B8C3D60FD2.png" alt="Stella">
 
   <div id="text" class="typewriter"></div>
 
-  <button onclick="alert('Cavabını gözləyirəm.')">
-    Cavab ver
-  </button>
-
+  <div class="buttons" id="btnArea">
+    <button id="yesBtn" onclick="alert('Çox sağ olun Stella 😊')">Yaxşı</button>
+    <button id="noBtn" type="button">Yox</button>
+  </div>
 </div>
 
 <script>
 const message =
-`Salam Faaiilllaa.
+`Salam Stella.
 
-Dedim fərqli cür yazım,
-biraz əziyyətli olsa da.
-
-Takibimi qəbul edə bilərsən?`;
+Mənə də geri takip ata bilərsiniz zəhmət olmasa?`;
 
 let i = 0;
 const speed = 45;
@@ -118,8 +120,38 @@ function typeWriter() {
     setTimeout(typeWriter, speed);
   }
 }
-
 setTimeout(typeWriter, 2000);
+
+// --- Mobile-friendly "escape" button ---
+const noBtn = document.getElementById("noBtn");
+const area = document.getElementById("btnArea");
+
+function moveNoBtn() {
+  const areaRect = area.getBoundingClientRect();
+  const btnRect = noBtn.getBoundingClientRect();
+
+  const maxX = areaRect.width - btnRect.width - 5;
+  const maxY = areaRect.height - btnRect.height - 5;
+
+  const x = Math.random() * Math.max(0, maxX);
+  const y = Math.random() * Math.max(0, maxY);
+
+  noBtn.style.left = x + "px";
+  noBtn.style.top = y + "px";
+}
+
+// Telefon üçün: toxunan kimi qaçsın
+noBtn.addEventListener("touchstart", (e) => {
+  e.preventDefault();  // klik işləməsin
+  moveNoBtn();
+}, { passive: false });
+
+// Ehtiyat üçün: desktopda da işləsin
+noBtn.addEventListener("mouseover", moveNoBtn);
+noBtn.addEventListener("click", (e) => { e.preventDefault(); moveNoBtn(); });
+
+// Səhifə açılan kimi də bir dəfə yerləşdir
+setTimeout(moveNoBtn, 500);
 </script>
 
 </body>
