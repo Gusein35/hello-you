@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Special</title>
+<title>Nuray üçün </title>
 
 <style>
 body{
@@ -18,6 +18,17 @@ body{
   color:white;
 }
 
+/* floating hearts /
+.heart{
+  position:absolute;
+  color:red;
+  animation:float 6s linear infinite;
+}
+@keyframes float{
+  from{transform:translateY(100vh); opacity:1;}
+  to{transform:translateY(-10vh); opacity:0;}
+}
+
 .top-text{
   position:absolute;
   top:-60px;
@@ -27,11 +38,10 @@ body{
   font-weight:600;
   animation:slideDown 2s ease forwards;
 }
-
 @keyframes slideDown{ to{ top:30px; } }
 
 .card{
-  position:relative;              /* IMPORTANT */
+  position:relative;
   background:rgba(255,255,255,0.1);
   backdrop-filter:blur(12px);
   width:90%;
@@ -43,9 +53,7 @@ body{
   opacity:0;
   animation:fadeIn 2s ease forwards;
   animation-delay:1.5s;
-  overflow:hidden;                /* button carddan çıxmasın */
 }
-
 @keyframes fadeIn{ to{ opacity:1; } }
 
 img{
@@ -64,7 +72,7 @@ img{
 .buttons{
   margin-top:15px;
   position:relative;
-  min-height:60px; /* qaçan button üçün yer */
+  min-height:60px;
 }
 
 button{
@@ -78,80 +86,101 @@ button{
   font-size:14px;
 }
 
-button:hover{ background:#ddd; }
-
 #noBtn{
   position:absolute;
   left:55%;
   top:10px;
+}
+
+/ YES animation */
+.big-heart{
+  position:fixed;
+  font-size:80px;
+  animation:pop 1s ease forwards;
+}
+@keyframes pop{
+  0%{transform:scale(0);}
+  100%{transform:scale(1.5); opacity:0;}
 }
 </style>
 </head>
 
 <body>
 
-<div class="top-text">Special for Stella</div>
+<audio id="music" src="music.mp3" loop></audio>
+
+<div class="top-text">Special for Nuray </div>
 
 <div class="card">
-  <img src="8ED67D9B-B9BD-4D54-9748-E7B8C3D60FD2.png" alt="Stella">
+  <img src="photo.jpg" alt="Nuray">
 
   <div id="text" class="typewriter"></div>
 
   <div class="buttons" id="btnArea">
-    <button id="yesBtn" onclick="alert('Çox sağ olun Stella xanım ')">Yaxşı</button>
+    <button onclick="accept()">Hə <3</button>
     <button id="noBtn" type="button">Yox</button>
   </div>
 </div>
 
 <script>
-const message =
-`Salam Stella.
-
-Mənə də geri takip ata bilərsiniz zəhmət olmasa?`;
+// typewriter
+const message = Salam Nuray xanım,  Sabah mənimlə date edərsinizmi? 💖;
 
 let i = 0;
-const speed = 45;
-const textElement = document.getElementById("text");
-
-function typeWriter() {
-  if (i < message.length) {
-    textElement.innerHTML += message.charAt(i);
+function typeWriter(){
+  if(i < message.length){
+    document.getElementById("text").innerHTML += message.charAt(i);
     i++;
-    setTimeout(typeWriter, speed);
+    setTimeout(typeWriter, 40);
   }
 }
 setTimeout(typeWriter, 2000);
 
-// --- Mobile-friendly "escape" button ---
+// hearts background
+function createHeart(){
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerHTML = "❤️";
+  heart.style.left = Math.random()*100 + "vw";
+  heart.style.fontSize = (Math.random()*20+10) + "px";
+  document.body.appendChild(heart);
+  setTimeout(()=>heart.remove(),6000);
+}
+setInterval(createHeart, 300);
+
+// NO button escape
 const noBtn = document.getElementById("noBtn");
 const area = document.getElementById("btnArea");
 
-function moveNoBtn() {
-  const areaRect = area.getBoundingClientRect();
-  const btnRect = noBtn.getBoundingClientRect();
-
-  const maxX = areaRect.width - btnRect.width - 5;
-  const maxY = areaRect.height - btnRect.height - 5;
-
-  const x = Math.random() * Math.max(0, maxX);
-  const y = Math.random() * Math.max(0, maxY);
-
-  noBtn.style.left = x + "px";
-  noBtn.style.top = y + "px";
+function moveNoBtn(){
+  const maxX = area.offsetWidth - noBtn.offsetWidth;
+  const maxY = area.offsetHeight - noBtn.offsetHeight;
+  noBtn.style.left = Math.random()*maxX + "px";
+  noBtn.style.top = Math.random()*maxY + "px";
 }
 
-// Telefon üçün: toxunan kimi qaçsın
-noBtn.addEventListener("touchstart", (e) => {
-  e.preventDefault();  // klik işləməsin
-  moveNoBtn();
-}, { passive: false });
-
-// Ehtiyat üçün: desktopda da işləsin
 noBtn.addEventListener("mouseover", moveNoBtn);
-noBtn.addEventListener("click", (e) => { e.preventDefault(); moveNoBtn(); });
+noBtn.addEventListener("touchstart", (e)=>{
+  e.preventDefault();
+  moveNoBtn();
+});
 
-// Səhifə açılan kimi də bir dəfə yerləşdir
-setTimeout(moveNoBtn, 500);
+// YES click
+function accept(){
+  document.getElementById("music").play();
+
+  for(let i=0;i<10;i++){
+    const h = document.createElement("div");
+    h.className="big-heart";
+    h.innerHTML="<3";
+    h.style.left = Math.random()*100+"vw";
+    h.style.top = Math.random()*100+"vh";
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),1000);
+  }
+
+  alert("Super! Sabah görüşürük :)");
+}
 </script>
 
 </body>
