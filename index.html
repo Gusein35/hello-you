@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nuray üçün </title>
+<title>Special</title>
 
 <style>
 body{
@@ -18,17 +18,6 @@ body{
   color:white;
 }
 
-/* floating hearts /
-.heart{
-  position:absolute;
-  color:red;
-  animation:float 6s linear infinite;
-}
-@keyframes float{
-  from{transform:translateY(100vh); opacity:1;}
-  to{transform:translateY(-10vh); opacity:0;}
-}
-
 .top-text{
   position:absolute;
   top:-60px;
@@ -38,7 +27,10 @@ body{
   font-weight:600;
   animation:slideDown 2s ease forwards;
 }
-@keyframes slideDown{ to{ top:30px; } }
+
+@keyframes slideDown{
+  to{ top:30px; }
+}
 
 .card{
   position:relative;
@@ -53,8 +45,12 @@ body{
   opacity:0;
   animation:fadeIn 2s ease forwards;
   animation-delay:1.5s;
+  overflow:hidden;
 }
-@keyframes fadeIn{ to{ opacity:1; } }
+
+@keyframes fadeIn{
+  to{ opacity:1; }
+}
 
 img{
   width:200px;
@@ -86,30 +82,21 @@ button{
   font-size:14px;
 }
 
+button:hover{
+  background:#ddd;
+}
+
 #noBtn{
   position:absolute;
   left:55%;
   top:10px;
-}
-
-/ YES animation */
-.big-heart{
-  position:fixed;
-  font-size:80px;
-  animation:pop 1s ease forwards;
-}
-@keyframes pop{
-  0%{transform:scale(0);}
-  100%{transform:scale(1.5); opacity:0;}
 }
 </style>
 </head>
 
 <body>
 
-<audio id="music" src="Orkhan Zeynalli ft. Ayni Khalid İllər Sonra (Rəsmi Musiqi Videosu).mp3" loop></audio>
-
-<div class="top-text">Special for Nuray </div>
+<div class="top-text">Special for Nuray</div>
 
 <div class="card">
   <img src="IMG_9049.jpeg" alt="Nuray">
@@ -117,70 +104,71 @@ button{
   <div id="text" class="typewriter"></div>
 
   <div class="buttons" id="btnArea">
-    <button onclick="accept()">Hə <3</button>
+    <button id="yesBtn"
+      onclick="alert('Qızılgül kimi zərif olub , tikanların ilə əlimi qanadırsan bəzən )')">
+      Hə
+    </button>
+
     <button id="noBtn" type="button">Yox</button>
   </div>
 </div>
 
 <script>
-// typewriter
-const message = Salam Nuray xanım,  Sabah mənimlə date edərsinizmi? 💖;
+const message =
+`Salam Nuray xanım,
+
+10 may tarixində Gül bayramında,
+mənimlə axşam date edərsinizmi?`;
 
 let i = 0;
-function typeWriter(){
-  if(i < message.length){
-    document.getElementById("text").innerHTML += message.charAt(i);
+const speed = 45;
+const textElement = document.getElementById("text");
+
+function typeWriter() {
+  if (i < message.length) {
+    textElement.innerHTML += message.charAt(i);
     i++;
-    setTimeout(typeWriter, 40);
+    setTimeout(typeWriter, speed);
   }
 }
+
 setTimeout(typeWriter, 2000);
 
-// hearts background
-function createHeart(){
-  const heart = document.createElement("div");
-  heart.className = "heart";
-  heart.innerHTML = "❤️";
-  heart.style.left = Math.random()*100 + "vw";
-  heart.style.fontSize = (Math.random()*20+10) + "px";
-  document.body.appendChild(heart);
-  setTimeout(()=>heart.remove(),6000);
-}
-setInterval(createHeart, 300);
-
-// NO button escape
+// Qaçan "Yox" buttonu
 const noBtn = document.getElementById("noBtn");
 const area = document.getElementById("btnArea");
 
-function moveNoBtn(){
-  const maxX = area.offsetWidth - noBtn.offsetWidth;
-  const maxY = area.offsetHeight - noBtn.offsetHeight;
-  noBtn.style.left = Math.random()*maxX + "px";
-  noBtn.style.top = Math.random()*maxY + "px";
+function moveNoBtn() {
+
+  const areaRect = area.getBoundingClientRect();
+  const btnRect = noBtn.getBoundingClientRect();
+
+  const maxX = areaRect.width - btnRect.width - 5;
+  const maxY = areaRect.height - btnRect.height - 5;
+
+  const x = Math.random() * Math.max(0, maxX);
+  const y = Math.random() * Math.max(0, maxY);
+
+  noBtn.style.left = x + "px";
+  noBtn.style.top = y + "px";
 }
 
+// Telefon üçün
+noBtn.addEventListener("touchstart", (e) => {
+  e.preventDefault();
+  moveNoBtn();
+}, { passive:false });
+
+// PC üçün
 noBtn.addEventListener("mouseover", moveNoBtn);
-noBtn.addEventListener("touchstart", (e)=>{
+
+noBtn.addEventListener("click", (e) => {
   e.preventDefault();
   moveNoBtn();
 });
 
-// YES click
-function accept(){
-  document.getElementById("music").play();
-
-  for(let i=0;i<10;i++){
-    const h = document.createElement("div");
-    h.className="big-heart";
-    h.innerHTML="<3";
-    h.style.left = Math.random()*100+"vw";
-    h.style.top = Math.random()*100+"vh";
-    document.body.appendChild(h);
-    setTimeout(()=>h.remove(),1000);
-  }
-
-  alert("Super! Sabah görüşürük :)");
-}
+// İlk random yer
+setTimeout(moveNoBtn, 500);
 </script>
 
 </body>
