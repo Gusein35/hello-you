@@ -3,11 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Special</title>
+<title>Special for Mrs. Şirin</title>
 
 <style>
-body{
+*{
   margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
   font-family:'Segoe UI',sans-serif;
   background:linear-gradient(135deg,#1f1c2c,#928dab);
   display:flex;
@@ -29,143 +34,162 @@ body{
 }
 
 @keyframes slideDown{
-  to{ top:30px; }
+  to{
+    top:30px;
+  }
 }
 
 .card{
-  position:relative;
-  background:rgba(255,255,255,0.1);
+  background:rgba(255,255,255,0.12);
   backdrop-filter:blur(12px);
   width:90%;
   max-width:420px;
   border-radius:20px;
   padding:30px 20px;
   text-align:center;
-  box-shadow:0 20px 50px rgba(0,0,0,0.3);
+  box-shadow:0 20px 50px rgba(0,0,0,.35);
   opacity:0;
-  animation:fadeIn 2s ease forwards;
-  animation-delay:1.5s;
-  overflow:hidden;
+  animation:fadeIn 1.5s ease forwards;
+  animation-delay:1s;
 }
 
 @keyframes fadeIn{
-  to{ opacity:1; }
+  to{
+    opacity:1;
+  }
 }
 
 img{
   width:200px;
   border-radius:15px;
-  margin-bottom:15px;
+  margin-bottom:20px;
 }
 
 .typewriter{
-  font-size:16px;
+  font-size:17px;
   line-height:1.6;
-  border-right:2px solid white;
   white-space:pre-line;
-}
-
-.buttons{
-  margin-top:15px;
-  position:relative;
+  border-right:2px solid white;
+  display:inline-block;
   min-height:60px;
 }
 
-button{
-  margin:5px;
-  padding:10px 20px;
-  border:none;
-  border-radius:12px;
-  background:white;
-  color:#333;
-  cursor:pointer;
-  font-size:14px;
+.buttons{
+  margin-top:25px;
+  position:relative;
+  height:120px;
 }
 
-button:hover{
-  background:#ddd;
+button{
+  padding:10px 22px;
+  border:none;
+  border-radius:12px;
+  cursor:pointer;
+  font-size:15px;
+  transition:.2s;
+}
+
+#yesBtn{
+  background:white;
+  color:#222;
+}
+
+#yesBtn:hover{
+  background:#ececec;
 }
 
 #noBtn{
   position:absolute;
-  left:55%;
-  top:10px;
+  left:60%;
+  top:20px;
+  background:#ff4d6d;
+  color:white;
 }
 </style>
 </head>
 
 <body>
 
-<div class="top-text">Special for mrs. Şirinn</div>
+<div class="top-text">
+🎭 Special for Mrs. Şirin
+</div>
 
 <div class="card">
-  <img src="CD1A7B7A-ED4A-4A27-938E-5D94091C878E.png" alt="Şirin">
 
-  <div id="text" class="typewriter"></div>
+<img src="./CD1A7B7A-ED4A-4A27-938E-5D94091C878E.png" alt="Şirin">
 
-  <div class="buttons" id="btnArea">
-    <button id="yesBtn"
-      onclick="alert('Təşəkkür edirəm, tarixin ən böyük Heist üçün xəbər gözləyin.. ')">
-      Hə
-    </button>
+<div id="text" class="typewriter"></div>
 
-    <button id="noBtn" type="button">Yox</button>
-  </div>
+<div class="buttons" id="btnArea">
+
+<button id="yesBtn">
+Bəli ❤️
+</button>
+
+<button id="noBtn" type="button">
+Yox 🙈
+</button>
+
+</div>
+
 </div>
 
 <script>
+
 const message =
-`Takipi qəbul edə bilərsiz Mrs Lacase de Shirin ¿ `;
+`Mrs. Şirin,
+
+"La Casa de Şirin" komandasına qoşulmağa hazırsınız?
+
+Takibi qəbul edərsiniz? `;
 
 let i = 0;
 const speed = 45;
-const textElement = document.getElementById("text");
+const text = document.getElementById("text");
 
-function typeWriter() {
-  if (i < message.length) {
-    textElement.innerHTML += message.charAt(i);
-    i++;
-    setTimeout(typeWriter, speed);
-  }
+function typeWriter(){
+    if(i < message.length){
+        text.textContent += message.charAt(i);
+        i++;
+        setTimeout(typeWriter,speed);
+    }
 }
 
-setTimeout(typeWriter, 2000);
+setTimeout(typeWriter,1800);
 
-// Qaçan "Yox" buttonu
+document.getElementById("yesBtn").onclick = () => {
+    alert("Təşəkkür edirəm!\nTarixin ən böyük heisti üçün xəbəri gözləyin... 🎭");
+};
+
 const noBtn = document.getElementById("noBtn");
 const area = document.getElementById("btnArea");
 
-function moveNoBtn() {
+function moveNoBtn(){
 
-  const areaRect = area.getBoundingClientRect();
-  const btnRect = noBtn.getBoundingClientRect();
+    const areaRect = area.getBoundingClientRect();
+    const btnRect = noBtn.getBoundingClientRect();
 
-  const maxX = areaRect.width - btnRect.width - 5;
-  const maxY = areaRect.height - btnRect.height - 5;
+    const maxX = areaRect.width - btnRect.width;
+    const maxY = areaRect.height - btnRect.height;
 
-  const x = Math.random() * Math.max(0, maxX);
-  const y = Math.random() * Math.max(0, maxY);
-
-  noBtn.style.left = x + "px";
-  noBtn.style.top = y + "px";
+    noBtn.style.left = Math.random()*maxX + "px";
+    noBtn.style.top = Math.random()*maxY + "px";
 }
 
-// Telefon üçün
-noBtn.addEventListener("touchstart", (e) => {
-  e.preventDefault();
-  moveNoBtn();
-}, { passive:false });
+noBtn.addEventListener("mouseover",moveNoBtn);
 
-// PC üçün
-noBtn.addEventListener("mouseover", moveNoBtn);
-
-noBtn.addEventListener("click", (e) => {
-  e.preventDefault();
-  moveNoBtn();
+noBtn.addEventListener("click",(e)=>{
+    e.preventDefault();
+    moveNoBtn();
 });
 
-// İlk random yer
-setTimeout(moveNoBtn, 500);
+noBtn.addEventListener("touchstart",(e)=>{
+    e.preventDefault();
+    moveNoBtn();
+},{passive:false});
+
+setTimeout(moveNoBtn,500);
+
 </script>
 
 </body>
