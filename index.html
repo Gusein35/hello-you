@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="az">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Salam Şirin Qız </title>
+<title>For Nani</title>
 
 <style>
 *{
@@ -34,7 +34,9 @@ body{
 }
 
 @keyframes slideDown{
-    to{top:30px;}
+    to{
+        top:30px;
+    }
 }
 
 .card{
@@ -51,7 +53,9 @@ body{
 }
 
 @keyframes fadeIn{
-    to{opacity:1;}
+    to{
+        opacity:1;
+    }
 }
 
 img{
@@ -64,7 +68,7 @@ img{
     font-size:18px;
     line-height:1.6;
     white-space:pre-line;
-    min-height:70px;
+    min-height:100px;
     border-right:2px solid #fff;
     display:inline-block;
 }
@@ -95,34 +99,42 @@ button{
     background:#ff4d6d;
     color:white;
 }
+
+#yesBtn:hover{
+    background:#ddd;
+}
 </style>
 </head>
 
 <body>
 
 <div class="top-text">
-Salam Şirin Xanım
+    For Nani
 </div>
 
 <div class="card">
 
-<img src="158D67B1-CE08-4220-8925-0AD1D3453AE7.png" alt="Şirin">
+    <img
+        src="B94BA6AC-DD1F-4DF5-A76F-C57D7CB71363.png"
+        alt="Nani"
+    >
 
-<div id="text" class="typewriter"></div>
+    <div id="text" class="typewriter"></div>
 
-<div class="buttons" id="btnArea">
-    <button id="yesBtn">Hə </button>
-    <button id="noBtn">Yox !!</button>
-</div>
+    <div class="buttons" id="btnArea">
+        <button id="yesBtn">Yes</button>
+        <button id="noBtn" type="button">No</button>
+    </div>
 
 </div>
 
 <script>
 
 const message =
-`Salam Şirin Xanım,
+`The view was breathtaking,
+but I still couldn't take my eyes off you.
 
-Sizi daha yaxından tanımaq olarmı?`;
+Will you be my view?`;
 
 let i = 0;
 const speed = 45;
@@ -132,18 +144,20 @@ function typeWriter(){
     if(i < message.length){
         text.textContent += message.charAt(i);
         i++;
-        setTimeout(typeWriter,speed);
+        setTimeout(typeWriter, speed);
     }
 }
 
-setTimeout(typeWriter,1500);
+setTimeout(typeWriter, 1500);
 
-// Hə düyməsi
+
+// Yes button
 document.getElementById("yesBtn").onclick = function(){
-    alert(" Əla \nOnda sabah görüşərik istəsəniz");
+    alert("My eyes always belong to you.");
 };
 
-// Qaçan Yox düyməsi
+
+// No button
 const noBtn = document.getElementById("noBtn");
 const area = document.getElementById("btnArea");
 
@@ -155,23 +169,26 @@ function moveNoBtn(){
     const maxX = areaRect.width - btnRect.width;
     const maxY = areaRect.height - btnRect.height;
 
-    noBtn.style.left = Math.random()*maxX + "px";
-    noBtn.style.top = Math.random()*maxY + "px";
+    const x = Math.random() * Math.max(0, maxX);
+    const y = Math.random() * Math.max(0, maxY);
+
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
 }
 
-noBtn.addEventListener("mouseover",moveNoBtn);
+noBtn.addEventListener("mouseover", moveNoBtn);
 
-noBtn.addEventListener("click",(e)=>{
+noBtn.addEventListener("touchstart", function(e){
+    e.preventDefault();
+    moveNoBtn();
+}, {passive:false});
+
+noBtn.addEventListener("click", function(e){
     e.preventDefault();
     moveNoBtn();
 });
 
-noBtn.addEventListener("touchstart",(e)=>{
-    e.preventDefault();
-    moveNoBtn();
-},{passive:false});
-
-setTimeout(moveNoBtn,500);
+setTimeout(moveNoBtn, 500);
 
 </script>
 
