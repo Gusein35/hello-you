@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="az">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For Nani</title>
+<title>For Əsmər</title>
 
 <style>
 *{
@@ -109,21 +109,21 @@ button{
 <body>
 
 <div class="top-text">
-    For Nani
+    For Əsmər
 </div>
 
 <div class="card">
 
     <img
-        src="B94BA6AC-DD1F-4DF5-A76F-C57D7CB71363.png"
-        alt="Nani"
+        src="591CF49A-8B54-4412-90B0-607BE172316E.png"
+        alt="Əsmər"
     >
 
     <div id="text" class="typewriter"></div>
 
     <div class="buttons" id="btnArea">
-        <button id="yesBtn">Yes</button>
-        <button id="noBtn" type="button">No</button>
+        <button id="yesBtn">Hə</button>
+        <button id="noBtn" type="button">Yox</button>
     </div>
 
 </div>
@@ -131,10 +131,9 @@ button{
 <script>
 
 const message =
-`The view was breathtaking,
-but I still couldn't take my eyes off you.
+`Salam Əsmər,
 
-Will you be my view?`;
+Sizi gələn həftə şahmat duelimə dəvət edirəm!`;
 
 let i = 0;
 const speed = 45;
@@ -151,13 +150,13 @@ function typeWriter(){
 setTimeout(typeWriter, 1500);
 
 
-// Yes button
+// Hə düyməsi
 document.getElementById("yesBtn").onclick = function(){
-    alert("My eyes always belong to you.");
+    alert("Hesabı ödəməyə hazır ol!");
 };
 
 
-// No button
+// Yox düyməsi
 const noBtn = document.getElementById("noBtn");
 const area = document.getElementById("btnArea");
 
@@ -176,18 +175,26 @@ function moveNoBtn(){
     noBtn.style.top = y + "px";
 }
 
+
+// PC
 noBtn.addEventListener("mouseover", moveNoBtn);
 
+
+// Telefon
 noBtn.addEventListener("touchstart", function(e){
     e.preventDefault();
     moveNoBtn();
 }, {passive:false});
 
+
+// Yox kliklənəndə də qaçsın
 noBtn.addEventListener("click", function(e){
     e.preventDefault();
     moveNoBtn();
 });
 
+
+// İlk random yer
 setTimeout(moveNoBtn, 500);
 
 </script>
