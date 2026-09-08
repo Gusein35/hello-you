@@ -1,1 +1,228 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Lamia</title>
 
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Segoe UI',sans-serif;
+    background:linear-gradient(135deg,#1f1c2c,#928dab);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    overflow:hidden;
+    color:#fff;
+}
+
+.top-text{
+    position:absolute;
+    top:-60px;
+    width:100%;
+    text-align:center;
+    font-size:24px;
+    font-weight:bold;
+    animation:slideDown 2s forwards;
+}
+
+@keyframes slideDown{
+    to{
+        top:30px;
+    }
+}
+
+.card{
+    width:90%;
+    max-width:420px;
+    background:rgba(255,255,255,.12);
+    backdrop-filter:blur(12px);
+    border-radius:20px;
+    padding:25px;
+    text-align:center;
+    box-shadow:0 15px 40px rgba(0,0,0,.35);
+    animation:fadeIn 1.5s forwards;
+    opacity:0;
+}
+
+@keyframes fadeIn{
+    to{
+        opacity:1;
+    }
+}
+
+img{
+    width:200px;
+    border-radius:15px;
+    margin-bottom:20px;
+}
+
+.typewriter{
+    font-size:18px;
+    line-height:1.6;
+    white-space:pre-line;
+    min-height:100px;
+    border-right:2px solid #fff;
+    display:inline-block;
+}
+
+.buttons{
+    position:relative;
+    margin-top:25px;
+    height:120px;
+}
+
+button{
+    padding:10px 22px;
+    border:none;
+    border-radius:12px;
+    cursor:pointer;
+    font-size:15px;
+}
+
+#yesBtn{
+    background:#fff;
+    color:#222;
+}
+
+#noBtn{
+    position:absolute;
+    left:60%;
+    top:20px;
+    background:#ff4d6d;
+    color:white;
+}
+
+#yesBtn:hover{
+    background:#ddd;
+}
+
+.success{
+    font-size:20px;
+    font-weight:bold;
+    margin-top:20px;
+    animation:pop .5s ease;
+}
+
+@keyframes pop{
+    0%{
+        transform:scale(.5);
+        opacity:0;
+    }
+    100%{
+        transform:scale(1);
+        opacity:1;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="top-text">
+    For Lamia
+</div>
+
+<div class="card">
+
+    <img
+        src="A78EF7A6-315F-4BC6-B999-D7856D2E4078.png"
+        alt="Lamia"
+    >
+
+    <div id="text" class="typewriter"></div>
+
+    <div class="buttons" id="btnArea">
+        <button id="yesBtn">Hə</button>
+        <button id="noBtn" type="button">Yox</button>
+    </div>
+
+</div>
+
+<script>
+
+const message =
+`Salam Əkiz variantım,
+
+Takipimi qəbul edə bilərsən?`;
+
+let i = 0;
+const speed = 45;
+const text = document.getElementById("text");
+
+function typeWriter(){
+    if(i < message.length){
+        text.textContent += message.charAt(i);
+        i++;
+        setTimeout(typeWriter, speed);
+    }
+}
+
+setTimeout(typeWriter, 1500);
+
+
+// Hə düyməsi
+document.getElementById("yesBtn").onclick = function(){
+
+    text.textContent = "Doğru seçimi etdin, təbriklər!";
+
+    text.classList.remove("typewriter");
+    text.classList.add("success");
+
+    document.getElementById("noBtn").style.display = "none";
+    document.getElementById("yesBtn").style.display = "none";
+};
+
+
+// Yox düyməsi
+const noBtn = document.getElementById("noBtn");
+const area = document.getElementById("btnArea");
+
+function moveNoBtn(){
+
+    const areaRect = area.getBoundingClientRect();
+    const btnRect = noBtn.getBoundingClientRect();
+
+    const maxX = areaRect.width - btnRect.width;
+    const maxY = areaRect.height - btnRect.height;
+
+    const x = Math.random() * Math.max(0, maxX);
+    const y = Math.random() * Math.max(0, maxY);
+
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+}
+
+
+// PC
+noBtn.addEventListener("mouseover", moveNoBtn);
+
+
+// Telefon
+noBtn.addEventListener("touchstart", function(e){
+    e.preventDefault();
+    moveNoBtn();
+}, {passive:false});
+
+
+// Yox kliklənəndə də qaçsın
+noBtn.addEventListener("click", function(e){
+    e.preventDefault();
+    moveNoBtn();
+});
+
+
+// İlk random yer
+setTimeout(moveNoBtn, 500);
+
+</script>
+
+</body>
+</html>
